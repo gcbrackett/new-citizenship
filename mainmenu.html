@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Main Menu</title>
+        <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.min.css" />
+        <link rel="stylesheet" href="css/themes/citizenship/citizenship.min.css" />
+        <link rel="stylesheet" href="css/themes/citizenship/custom.css" />
+        <script src="js/jquery.js"></script>
+        <script src="js/functions.js"></script>
+        <script src="js/jquery.mobile-1.4.2.min.js"></script>
+    </head>
+    <body>
+        <div id='mainmenu' data-role="page" data-theme="a" data-dom-cache="false">
+            <!-- menu page -->
+            <div data-role="header" data-position="fixed">
+                <a href='index.html' data-iconpos="notext" data-icon="home" data-mini='true'
+                data-transition="slide" data-direction="reverse" id="backButton">Home</a>
+                <h1>Main Menu</h1>
+            </div>
+            <p class="info-strip" id="infoStrip">
+                Info
+            </p>
+            <div role="main" id="mainContent" class="ui-content">
+                <div class="ui-field-contain" style="border: none; margin-top: 5px;">
+                    <label for="dataSelect">Data Entry:</label>
+                    <select name="dataSelect" id="dataSelect" data-mini="true" data-native-menu="false">
+                        <option data-placeholder="true">Select...</option>
+                        <option value="enterdeltas.html">Enter Deltas</option>
+                        <option value="enterkudos.html">Enter Kudos</option>
+                    </select>
+                </div>
+                <div class="ui-field-contain" style="border: none; margin-top: 5px;">
+                    <label for="reportSelect">Reports:</label>
+                    <select name="reportSelect" id="reportSelect" data-mini="true" data-native-menu="false">
+                        <option data-placeholder="true">View...</option>
+                        <option value ="schoolstatus.html">All-School Status Listings</option>
+                        <option value="studentreports.html">Student Reports</option>
+                        <!-- <option value="crewselect.html">Crew Events</option> -->
+                        <option value="staffselect.html">Staff Member Events</option>
+                    </select>
+                </div>
+                <div class="ui-field-contain" style="border: none; margin-top: 5px; display: none;" id="adminButton">
+                    <label for="admin-menu">Administration:</label>
+                    <a href="adminmenu.html" name="admin-menu" class="ui-btn ui-btn-c ui-mini ui-icon-user ui-btn-icon-left">Admin Menu</a>
+                </div>
+                <div data-role="popup" id="loginRequired" class="ui-content" data-history="false" data-dismissible="false" style="max-width:280px">
+                    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-left">Close</a>
+                    <p>
+                        You must be logged in to access this page.
+                    </p>
+                </div>
+            </div>
+            <!-- /main content -->
+            <script>
+			$('#loginRequired a').on("click", function(event) {
+				event.preventDefault();
+				event.stopImmediatePropagation();
+				goToPage("index.html", true);
+			});
+			$('body').on('pagecontainershow', function(event, ui) {
+				$('body').removeClass("ui-mobile-viewport", "ui-overlay-a");
+				//left behind by datebox
+				if ($('body').pagecontainer("getActivePage").attr('id') == "mainmenu") {//only for this page
+					if ( typeof ui.prevPage[0] == "undefined") {//for first entry
+						console.log('undefined branch');
+						initialize('mainmenu');
+					} else {
+						var prevID = $(ui.prevPage[0]).attr('id');
+						var initPageIDs = "login, enterdeltas, enterkudos, schoolstatus, studentreports, adminmenu,staffselect";
+						if (countOcurrences(initPageIDs, prevID) > 0) {//for return from another page
+							console.log('entry from page ' + prevID);
+							$(ui.prevPage[0]).remove();
+							initialize("mainmenu");
+						}
+					}
+				}
+			});
+            </script>
+        </div><!-- /mainmenu page -->
+    </body>
+</html>

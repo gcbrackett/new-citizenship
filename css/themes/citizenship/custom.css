@@ -1,0 +1,91 @@
+html {
+	font-size: 90%;
+}
+
+/* Form labels (overrides font-weight bold in bars, and mini font-size) */
+.ui-mobile label,
+div.ui-controlgroup-label {
+	font-weight: normal;
+	font-size: 1em;
+}
+
+.ui-field-contain {
+	border-bottom: 0px;
+	padding: 0px 0px 5px 0px;
+}
+
+p.info-strip {
+	border-bottom: 1px solid #000000;
+	border-top: 1px solid #e2e2e2;
+	text-align: center;
+	color: #666666;
+	width: 100%;
+	margin: 0px;
+	padding: 1px;
+	font: normal normal 1em/1.0 Helvetica, Arial, sans-serif;
+	background-color: #bcbcbc;
+}
+
+.event-list thead th, .event-list tbody tr:last-child {
+	border-bottom: 1px solid #D6D6D6;
+	border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.event-list tbody th, 
+.event-list tbody td {
+    border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    font-size: 0.8em;
+}
+.event-list tbody tr:last-child th, 
+.event-list tbody tr:last-child td {
+    border-bottom: 0;
+}
+.event-list tbody tr:nth-child(odd) td, 
+.event-list tbody tr:nth-child(odd) th {
+	background-color: #b8d1f3;
+}
+.event-list tbody tr:nth-child(even) td, 
+.event-list tbody tr:nth-child(even) th {
+	background-color: #dae5f4;
+}
+
+@media screen and (max-width: 1280px) {
+	.altrowsTbl {
+		width: 60%;
+	}
+}
+@media screen and (max-width: 960px) {
+	.altrowsTbl {
+		width: 70%;
+	}
+}
+@media screen and (max-width: 768px) {
+	.altrowsTbl {
+		width: 80%;
+	}
+}
+@media screen and (max-width: 480px) {
+	.altrowsTbl {
+		width: 100%;
+	}
+}
+
+.ui-navbar li .ui-btn { 
+	font-size: 0.75em; 
+}
+
+.altrowsTbl {
+	/* border-collapse: collapse; */
+	margin: auto;
+}
+.altrowsTbl tr:nth-child(odd){ 
+	background: #b8d1f3;
+}
+.altrowsTbl tr:nth-child(even){
+	background: #dae5f4;
+}
+.altrowsTbl td {
+	padding-left: 1em;
+	font-size: 0.8em;
+}
+

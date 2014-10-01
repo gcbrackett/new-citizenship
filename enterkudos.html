@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head id="citizenship">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Enter Kudos</title>
+        <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.min.css" />
+        <link rel="stylesheet" href="css/themes/citizenship/citizenship.min.css" />
+        <link rel="stylesheet" href="css/themes/citizenship/custom.css" />
+         <link rel="stylesheet" href="css/jqm-calbox.css"  />
+        <script src="js/jquery.js"></script>
+        <script src= "js/jquery.mobile-1.4.2.min.js"></script>
+        <script src= "js/functions.js"></script>
+    </head>
+    <body>
+        <div id='enterkudos' data-role="page" data-theme="a" data-dom-cache="false" >
+            <div data-role="header" data-position="fixed">
+                <a href='mainmenu.html' data-iconpos="notext" data-icon="back" data-mini='true'
+                data-transition="slide" data-direction="reverse" id="backButton">Back</a>
+                <h1>Enter Kudos</h1>
+            </div>
+            <p class="info-strip" id="infoStrip">
+                Info
+            </p>
+            <div role="main" id="mainContent" class="ui-content">
+                <div class="ui-field-contain">
+                    <label for="kudoDateInput">Date of Kudo</label>
+                    <input type="text" id="kudoDateInput"  >
+                </div>
+                <div class="ui-field-contain">
+                    <label for="studentMenu">Student(s):</label>
+                    <select multiple="multiple" data-native-menu="false" name="studentMenu" id="studentMenu" data-mini="true"></select>
+                </div>
+                <div class="ui-field-contain">
+                    <label for="kudoMenu">Kudo(s):</label>
+                    <select multiple="multiple" data-native-menu="false" name="kudoMenu" id="kudoMenu" data-mini="true"></select>
+                </div>
+                <div class="ui-field-contain">
+                    <label for="kudoComment">Comment:</label>
+                    <textarea cols="40" rows="6" name="kudoComment" id="kudoComment" data-mini="true"> </textarea>
+                </div>
+                <div>
+                    <a href="#" class="ui-btn ui-btn-inline ui-mini" id="submitKudos">Post</a>
+                </div>
+                <div data-role="popup" id='notValidDate' data-history="false" data-dismissible="false">
+                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+                    <div data-role="header" data-theme='b'>
+                        <h1>Date Incorrect</h1>
+                    </div>
+                    <div role='main' class='ui-content'>
+                        Please enter a real date of the form mm/dd/yyyy.
+                    </div>
+                </div>
+                <div data-role="popup" id='noStudentErr' data-history="false" data-dismissible="false">
+                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+                    <div data-role="header" data-theme='b'>
+                        <h1>No Student</h1>
+                    </div>
+                    <div role='main' class='ui-content'>
+                        Please select one or more students.
+                    </div>
+                </div>
+                <div data-role="popup" id='noKudoErr' data-history="false" data-dismissible="false">
+                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+                    <div data-role="header" data-theme='b'>
+                        <h1>No Kudo</h1>
+                    </div>
+                    <div role='main' class='ui-content'>
+                        Please select one or more kudos to assign.
+                    </div>
+                </div>
+                <div data-role="popup" id='postOK' data-history="false" data-dismissible="false">
+                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+                    <div data-role="header" data-theme='b'>
+                        <h1>Kudos Posted</h1>
+                    </div>
+                    <div role='main' class='ui-content'>
+                        The selected kudos have been posted to student accounts.
+                    </div>
+                </div>
+                <div data-role="popup" id='postErr' data-history="false" data-dismissible="false">
+                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+                    <div data-role="header" data-theme='b'>
+                        <h1>Post Error</h1>
+                    </div>
+                    <div role='main' class='ui-content'>
+                        The selected kudos could not be posted due to an error.
+                    </div>
+                </div>
+            </div>
+            <!-- /main content -->
+            <script src="js/modernizr.custom.42889.js"></script>
+            <script>
+			//use the modernizr load to load up external scripts.
+			Modernizr.load([{
+				 load : ["js/jqm-core+calbox.js"]
+			}, {
+				// test for media query support, if not load respond.js
+				test : Modernizr.mq('only all'),
+				nope : 'js/respond.js'
+			}]);
+            </script>
+            <script>
+			$('body').on('pagecontainershow', function(event, ui) {
+				if ($('body').pagecontainer("getActivePage").attr('id') == "enterkudos") {//only for this page, no dialogs etc.
+					if ( typeof ui.prevPage[0] == "undefined") {//for first entry
+						console.log('undefined branch');
+						initialize('enterkudos');
+					} else {
+						var prevID = $(ui.prevPage[0]).attr('id');
+						var initPageIDs = "mainmenu";
+						if (countOcurrences(initPageIDs, prevID) > 0) {//for entry from another page
+							console.log('entry from page ' + prevID);
+							$(ui.prevPage[0]).remove();
+							initialize("enterkudos");
+						}
+					}
+				}
+			});
+            </script>
+        </div>
+        <!-- /enterkudos page -->
+    </body>
+</html>

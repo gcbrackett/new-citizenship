@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head id="citizenship">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Select Staff</title>
+		<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.min.css" />
+		<link rel="stylesheet" href="css/themes/citizenship/citizenship.min.css" />
+		<link rel="stylesheet" href="css/themes/citizenship/custom.css" />
+		<script src="js/jquery.js"></script>
+		<script src="js/functions.js"></script>
+		<script src="js/jquery.mobile-1.4.2.min.js"></script>
+	</head>
+    <body>
+    	<div id="staffselect" data-role="page" data-theme="a" data-dom-cache="false">
+    		 <div data-role="header" data-position="fixed" id="selectheader">
+				<a href='mainmenu.html' data-iconpos="notext" data-icon="back" data-mini='true'  
+						data-transition="slide" data-direction="reverse" id="backButton">Back</a>
+				<h1>Staff Events</h1>
+			</div>
+			<p class="info-strip" id="infoStrip">Info</p>
+			<div role="main" id="mainContent" class="ui-content"  style="width: 80%; margin: auto; ">	<!-- never apply a style="" here -->
+				<div class="ui-field-contain">
+					<label for="staffMenu1">Staff Name:</label>
+					<select name="staffMenu1" id="staffMenu1" data-mini="true" data-native-menu="false">
+
+					</select>
+				</div>
+			</div> <!-- /main content -->
+			<script>
+				$('body').on( 'pagecontainershow', function( event, ui ) {
+					if ( $('body').pagecontainer("getActivePage").attr('id') == "staffselect") {		//only for this page, no dialogs etc.
+						if ( typeof ui.prevPage[0] == "undefined" ) {							//for first entry
+							console.log('undefined branch');
+							initialize('staffselect');
+						} else {
+							var prevID = $( ui.prevPage[0] ).attr('id');
+							var initPageIDs = "mainmenu, staffevents";
+							if ( countOcurrences( initPageIDs, prevID ) > 0 ) {			//for entry from another page
+								console.log( 'entry from page ' + prevID );
+								$( ui.prevPage[0] ).remove();
+								initialize("staffselect");
+							}
+						}			
+					}
+				});
+			</script>		
+    	</div> <!-- /selectstaff page -->
+    </body>
+</html>

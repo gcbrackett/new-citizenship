@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head id="deltaprofile">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Delta Profile</title>
+		<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.min.css" />
+		<link rel="stylesheet" href="css/themes/citizenship/citizenship.min.css" />
+		<link rel="stylesheet" href="css/themes/citizenship/custom.css" />
+		<script src="js/jquery.js"></script>
+		<script src="js/functions.js"></script>
+		<script src="js/jquery.mobile-1.4.2.min.js"></script>
+	</head>
+    <body>
+		<div id="chartpage" data-role="page" data-theme="a" data-dom-cache="false"> <!-- graph page -->
+			<div data-role="header" data-position="fixed" id="graphheader">
+				<a href='studentreports.html' data-iconpos="notext" data-icon="back" data-mini='true'  
+						data-transition="slide" data-direction="reverse" id="backButton">Back</a>
+				<h1>Delta Profile</h1>
+			</div>
+			<p class="info-strip" id="infoStrip">Info</p>
+			<div role="main" id="mainContent" class="ui-content" style="margin-left: -5px">
+				<div style="padding: 0; margin: 0" id="studentNameHeader">
+
+				</div>
+				<div id="graphcontainer">
+					<!-- graph appears here -->
+				</div>
+				<div data-role="popup" id='noDeltas' data-history="false" data-dismissible="false">
+					<a href="#" data-rel="back" data-role="button" data-theme="a" 
+						data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+					<div data-role="header" data-theme='b'>
+						<h1>No Deltas</h1>
+					</div>
+					<div class="ui-content">
+						This student has no posted deltas.
+					</div>
+				</div>
+			</div> <!-- /main content -->
+			<script src="js/jquery.flot/jquery.flot.min.js"></script>
+			<script src="js/jquery.flot/jquery.flot.pie.min.js"></script>
+			<script>
+				$('body').on( 'pagecontainershow', function( event, ui ) {
+					if ( $('body').pagecontainer("getActivePage").attr('id') == "chartpage") {		//only for this page, no dialogs etc.
+						if ( typeof ui.prevPage[0] == "undefined" ) {							//for first entry
+							console.log('undefined branch');
+							initialize('chartpage');
+						} else {
+							var prevID = $( ui.prevPage[0] ).attr('id');
+							var initPageIDs = "studentreports";
+							if ( countOcurrences( initPageIDs, prevID ) > 0 ) {			//for entry from another page
+								console.log( 'entry from page ' + prevID );
+								$( ui.prevPage[0] ).remove();
+								initialize("chartpage");
+							}
+						}			
+					}
+				});
+			</script>
+		</div> <!-- /chartpage page -->
+	</body>
+</html>

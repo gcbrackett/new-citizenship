@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Open</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Citizenship Login</title>
+        <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.min.css" />
+        <link rel="stylesheet" href="css/themes/citizenship/citizenship.min.css" />
+        <link rel="stylesheet" href="css/themes/citizenship/custom.css" />
+        <script src="js/jquery.js"></script>
+        <script src="js/functions.js"></script>
+        <script src="js/jquery.mobile-1.4.2.min.js"></script>
+    </head>
+    <body>
+        <div id="login" data-role="page" data-theme='a' data-dom-cache="false">
+            <div data-role="header" data-position="fixed">
+                <h1>Citizenship Login</h1>
+            </div>
+            <div role="main" id="mainContent" class="ui-content">
+                <div class="ui-field-contain">
+                    <label for="termSelect">Term database:</label>
+                    <select name="termSelect" id="termSelect" data-native-menu="false" data-mini="true">
+
+                    </select>
+                </div>
+                <div class="ui-field-contain" >
+                    <label for="staffMenu0">Login name:</label>
+                    <select name="staffMenu0" id="staffMenu0" data-native-menu="false" data-mini="true">
+
+                    </select>
+                </div>
+                <div class="ui-field-contain">
+                    <label for="password">Login password:</label>
+                    <input type="password" name="password" id="password" class='noSubmit'>
+                </div>
+                <div class="ui-field-contain">
+                    <a href="mainmenu.html" class="ui-btn ui-btn-inline ui-mini ui-btn-a" id="loginButton">Login</a>
+                </div>
+                <div data-role="popup" id='loginErr' data-history="false" data-dismissible="false">
+                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+                    <div data-role="header" data-theme='b'>
+                        <h1>Login Error</h1>
+                    </div>
+                    <div role='main' class='ui-content'>
+                        Password incorrect. Please re-enter it.
+                    </div>
+                </div>
+                <div data-role="popup" id='noStaffErr' data-history="false" data-dismissible="false">
+                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+                    <div data-role="header" data-theme='b'>
+                        <h1>Login Error</h1>
+                    </div>
+                    <div role='main' class='ui-content'>
+                        Please select a staff login name.
+                    </div>
+                </div>
+            </div>
+            <!-- /main content -->
+            <script>
+			$('body').on('pagecontainershow', function(event, ui) {
+				if ($('body').pagecontainer("getActivePage").attr('id') == "login") {//only for this page, no dialogs etc.
+					if ( typeof ui.prevPage[0] == "undefined") {//for first entry
+						console.log('undefined branch');
+						initialize('login');
+					} else {
+						var prevID = $(ui.prevPage[0]).attr('id');
+						var initPageIDs = "mainmenu";
+						if (countOcurrences(initPageIDs, prevID) > 0) {//for entry from another page
+							console.log('entry from page ' + prevID);
+							$(ui.prevPage[0]).remove();
+							initialize("login");
+						}
+					}
+				}
+			});
+            </script>
+        </div>
+    </body>
+</html>

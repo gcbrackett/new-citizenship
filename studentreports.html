@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Student Reports</title>
+		<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.min.css" />
+		<link rel="stylesheet" href="css/themes/citizenship/citizenship.min.css" />
+		<link rel="stylesheet" href="css/themes/citizenship/custom.css" />
+		<script src="js/jquery.js"></script>
+		<script src="js/functions.js"></script>
+		<script src="js/jquery.mobile-1.4.2.min.js"></script>
+	</head>
+    <body>
+		<div id='studentreports' data-role="page" data-theme="a" data-dom-cache="false">
+			<div data-role="header" data-position="fixed" id="mainheader">
+				<a href='mainmenu.html' data-iconpos="notext" data-icon="back" data-mini='true'  
+						data-transition="slide" data-direction="reverse" id="backButton">Back</a>
+				<h1>Student Reports</h1>
+			</div>
+			<p class="info-strip" id="infoStrip">Info</p>
+			<div role="main" id="mainContent" class="ui-content">
+				<div role="studentmenu" class="ui-content">
+					<ul data-role="listview" id="studentSelect" data-inset="true" data-filter="true" 
+						data-filter-reveal="true" data-filter-placeholder="Search to select a student...">
+						<!-- student name, id listings go here -->
+					</ul>
+				</div>
+				<div id="recordMenu" data-role="popup" data-theme="b" data-history="false" data-dismissible="false">
+					<!--<a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a> -->
+			        <ul data-role="listview" id="menuItems" data-inset="true" style="min-width:210px;">
+			            <li data-role="list-divider">Choose a report</li>
+			            <li><a href="studentevents.html">Events</a></li>
+			            <li><a href="statusgraph.html" >Status Graph</a></li>
+			            <li><a href="deltaprofile.html">Delta Profile</a></li>
+			            <li><a href="studentreports.html">Select New Student</a></li>
+			            <li><a href="mainmenu.html">Return to Main Menu</a></li>
+			        </ul>
+				</div>
+			</div>	<!-- /main content -->
+			<script>
+				$('body').on( 'pagecontainershow', function( event, ui ) {
+					if ( $('body').pagecontainer("getActivePage").attr('id') == "studentreports") {		//only for this page, no dialogs etc.
+						if ( typeof ui.prevPage[0] == "undefined" ) {							//for first entry
+							console.log('undefined branch');
+							initialize('studentreports');
+						} else {
+							var prevID = $( ui.prevPage[0] ).attr('id');
+							var initPageIDs = "mainmenu, studentevents, chartpage, graphpage, studentreports";
+							if ( countOcurrences( initPageIDs, prevID ) > 0 ) {			//for entry from another page
+								console.log( 'entry from page ' + prevID );
+								$( ui.prevPage[0] ).remove();
+								initialize("studentreports");
+							}
+						}			
+					}
+				});
+			</script>
+		</div> <!-- /studentreports page -->
+    </body>
+</html>
